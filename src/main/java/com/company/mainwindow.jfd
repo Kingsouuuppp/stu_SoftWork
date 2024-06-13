@@ -1,0 +1,326 @@
+JFDML JFormDesigner: "7.0.1.0.272" Java: "11.0.11" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+			name: "this"
+			"$locationPolicy": 1
+			"title": "XTU计算机学院学生劳动学时管理系统"
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "gradetext"
+				"text": "年级："
+				"font": &Font0 new java.awt.Font( "宋体", 0, 16 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 55
+				"height": 30
+				"x": 30
+				"y": 40
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "classtext"
+				"text": "班级："
+				"font": new java.awt.Font( "宋体", 0, 16 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 55
+				"height": 30
+				"x": 255
+				"y": 40
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "stuGrade"
+				"font": &Font1 new java.awt.Font( "黑体", 0, 14 )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "stuGradeActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 85
+				"y": 40
+				"width": 130
+				"height": 30
+			} )
+			add( new FormComponent( "javax.swing.JComboBox" ) {
+				name: "stuClass"
+				"font": #Font1
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 185
+				"height": 30
+				"x": 310
+				"y": 40
+			} )
+			add( new FormComponent( "javax.swing.JCheckBox" ) {
+				name: "sureexport"
+				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "sureexportActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 655
+				"y": 40
+				"width": 20
+				"height": 30
+			} )
+			add( new FormComponent( "javax.swing.JCheckBox" ) {
+				name: "suredelete"
+				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "suredeleteActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 20
+				"height": 30
+				"x": 655
+				"y": 105
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "exportbutton"
+				"text": "导出"
+				"font": new java.awt.Font( "宋体", 0, 16 )
+				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "exportbuttonActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 70
+				"height": 29
+				"x": 680
+				"y": 40
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "deletebutton"
+				"text": "删除"
+				"font": new java.awt.Font( "宋体", 0, 16 )
+				"enabled": false
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "deletebuttonActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 70
+				"height": 29
+				"x": 680
+				"y": 105
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "Loginbutton"
+				"text": "登录"
+				"font": new java.awt.Font( "宋体", 0, 17 )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "LoginbuttonActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 535
+				"y": 40
+				"width": 75
+				"height": 30
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "nametext"
+				"text": "姓名："
+				"font": #Font0
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 55
+				"height": 30
+				"x": 30
+				"y": 105
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "idtext"
+				"text": "学号："
+				"font": new java.awt.Font( "宋体", 0, 16 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 55
+				"height": 30
+				"x": 255
+				"y": 105
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "stuName"
+				"font": new java.awt.Font( "黑体", 0, 14 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 85
+				"y": 105
+				"width": 130
+				"height": 30
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "stuNumber"
+				"font": new java.awt.Font( "黑体", 0, 14 )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 185
+				"height": 30
+				"x": 310
+				"y": 105
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "searchButton"
+				"text": "查询"
+				"font": new java.awt.Font( "宋体", 0, 16 )
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchButtonActionPerformed", true ) )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 535
+				"y": 105
+				"width": 75
+				"height": 30
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "kongbai"
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 755
+				"y": 60
+				"height": 60
+				"width": 15
+			} )
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				"font": new java.awt.Font( "黑体", 0, 14 )
+				add( new FormComponent( "javax.swing.JTable" ) {
+					name: "table1"
+					"font": new java.awt.Font( "黑体", 0, 14 )
+					"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector {
+						add( "姓名" )
+						add( "学号" )
+						add( "年级" )
+						add( "班级" )
+						add( "已修学分" )
+						add( "余缺学分" )
+						add( "是否达标" )
+					}, new java.util.Vector {
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+						add( null )
+					}, new java.util.Vector {
+						add( false )
+						add( false )
+						add( false )
+						add( false )
+						add( false )
+						add( false )
+						add( false )
+					}, new java.util.Vector {
+						add( new com.jformdesigner.model.SwingTableColumn( null, 90, 0, 90, false ) )
+						add( new com.jformdesigner.model.SwingTableColumn( null, 130, 0, 130, false ) )
+						add( new com.jformdesigner.model.SwingTableColumn( null, 90, 70, 90, false ) )
+						add( new com.jformdesigner.model.SwingTableColumn( null, 0, 0, 0, false ) )
+						add( new com.jformdesigner.model.SwingTableColumn( null, 70, 0, 90, false ) )
+						add( new com.jformdesigner.model.SwingTableColumn( null, 70, 0, 90, false ) )
+						add( new com.jformdesigner.model.SwingTableColumn( null, 70, 25, 70, false ) )
+					} )
+					"preferredScrollableViewportSize": new java.awt.Dimension( 450, 425 )
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 30
+				"y": 145
+				"width": 720
+				"height": 205
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "qdqtjpanel"
+				"border": new javax.swing.border.TitledBorder( "文件命名格式：报名表/签到表/签退表" )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "scBmb"
+					"font": new java.awt.Font( "宋体", 0, 14 )
+					"text": "报名表"
+					"enabled": false
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "scBmbActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 20
+					"y": 35
+					"width": 115
+					"height": 115
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "scQdb"
+					"text": "签到表"
+					"font": new java.awt.Font( "宋体", 0, 14 )
+					"enabled": false
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "scQdbActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 150
+					"y": 35
+					"width": 100
+					"height": 50
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "scQtb"
+					"text": "签退表"
+					"font": new java.awt.Font( "宋体", 0, 14 )
+					"enabled": false
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "scQtbActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 100
+					"height": 50
+					"x": 150
+					"y": 100
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "bztext"
+					"text": "活动备注："
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 265
+					"y": 20
+					"height": 25
+					"width": 60
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "hdbeizhu"
+					"font": new java.awt.Font( "黑体", 0, 12 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 265
+					"y": 50
+					"width": 170
+					"height": 30
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "ldxstext"
+					"text": "劳动学时："
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 265
+					"y": 90
+					"width": 60
+					"height": 25
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "ldxs"
+					"font": new java.awt.Font( "黑体", 0, 12 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"width": 55
+					"height": 30
+					"x": 265
+					"y": 120
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "Qdsc"
+					"text": "开始上传"
+					"enabled": false
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "QdscActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 340
+					"y": 95
+					"width": 95
+					"height": 55
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"x": 25
+				"y": 370
+				"width": 460
+				"height": 165
+			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+				name: "hmcjpanel"
+				"border": new javax.swing.border.TitledBorder( "文件名格式如：2021级计算机科学与技术1班" )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "scHmc"
+					"text": "上传班级花名册"
+					"font": new java.awt.Font( "宋体", 0, 14 )
+					"enabled": false
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "scHmcActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+					"x": 50
+					"y": 40
+					"width": 160
+					"height": 95
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.NullConstraints ) {
+				"width": 260
+				"height": 165
+				"x": 495
+				"y": 370
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 795, 615 )
+		} )
+	}
+}
