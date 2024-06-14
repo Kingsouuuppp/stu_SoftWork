@@ -33,7 +33,6 @@ public class Loginwindow extends JFrame {
             callback.onLoginFailure();  // 调用失败回调   ！！！
             JOptionPane.showMessageDialog(Loginwindow.this, "账号或密码错误");
         }
-
     }
 
     private void initComponents() {
