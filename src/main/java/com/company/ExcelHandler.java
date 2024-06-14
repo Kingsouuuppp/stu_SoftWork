@@ -18,12 +18,14 @@ public class ExcelHandler {
         try (FileInputStream fis = new FileInputStream(excelFile);
              Workbook workbook = WorkbookFactory.create(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
+            int x = 0;
             for (Row row : sheet) {
+                x++;
                 if (row.getRowNum() == 0) continue;    // 跳过第一行（标题行）
                 Cell nameCell = row.getCell(0);     // 读取每行第一个单元格（第一列  姓名）
                 Cell numberCell = row.getCell(1);   // 读取每行第二个单元格（第一列  学号） excel表中 学号 必须是作为文本类型输入
 
-                if (nameCell != null && numberCell != null) {
+                if (nameCell != null && !nameCell.getStringCellValue().trim().isEmpty() && numberCell != null && !numberCell.getStringCellValue().trim().isEmpty()) {
                     String name = nameCell.getStringCellValue().trim();     // 获取并去除学生姓名两端空格
                     String number = numberCell.getStringCellValue().trim(); // 获取并去除学生学号两端空格
                     students.add(new Student(name, number, grade, studentClass, 0, 0, false));
@@ -49,7 +51,9 @@ public class ExcelHandler {
                         numberCell != null && numberCell.getCellType() == CellType.STRING) {
                     String name = nameCell.getStringCellValue().trim();
                     String number = numberCell.getStringCellValue().trim();
-                    students_inform.add(new StudentActionInfo(name, number));
+                    if (!name.isEmpty() && !number.isEmpty()) {
+                        students_inform.add(new StudentActionInfo(name, number));
+                    }
                 }
             }
         }
