@@ -284,4 +284,23 @@ public class DatabaseHandler {
         }
         return students;
     }
+
+    // 导出数据，查询某一学生 参加的活动情况。
+    public static List getStudentAttendActions(String studentName, String studentNumber) {
+        List<String> studentAttendActions = new ArrayList<>();
+        String sql_15 = "SELECT labor_event FROM studentactions WHERE student_name = ? AND student_number = ?";
+        try (Connection connection = getConnection();
+            PreparedStatement statement = connection.prepareStatement(( sql_15))) {
+            statement.setString(1, studentName);
+            statement.setString(2, studentNumber);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    studentAttendActions.add(resultSet.getString("labor_event"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return studentAttendActions;
+    }
 }

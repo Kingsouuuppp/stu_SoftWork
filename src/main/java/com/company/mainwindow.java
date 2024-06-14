@@ -277,7 +277,7 @@ public class mainwindow extends JFrame {
                         student.isPass() ? "是" : "否"
                 });
             }
-        } else {    // 如果输入了 学生 姓名、学号。则查询该学习
+        } else {    // 如果输入了 学生 姓名、学号。则查询该学生信息
             Student student = DatabaseHandler.queryStudent(studentName, studentNumber);
             if (student != null) {
                 tableModel.addRow(new Object[]{ // 将查询到的学生信息添加到表格
@@ -316,24 +316,44 @@ public class mainwindow extends JFrame {
         loadClassData();    // 根据 年级 当前索引项，加载对应年级的 班级 信息
     }
 
+    // 导出 按钮 监听事件
     private void exportbuttonActionPerformed(ActionEvent e) {
-        String studentGrade = (String)stuGrade.getSelectedItem();
-        String studentClass = (String)stuClass.getSelectedItem();
-        List<Student> grade_class_student = DatabaseHandler.getStudentsByGradeAndClass(studentGrade,studentClass);
-        // 错误处理，不过应该不会出现
-        if (grade_class_student.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "没有找到符合条件的学生！");
-            return;
-        }
-        // 导出到 Excel 文件
-        try {
-            ExcelHandler.exportStudentsToExcel(grade_class_student, studentGrade, studentClass);
-            JOptionPane.showMessageDialog(null, "学生数据导出成功！");
-        } catch (IOException eg) {
-            eg.printStackTrace();
-            JOptionPane.showMessageDialog(null, "导出文件失败: " + eg.getMessage());
-        }
 
+        String studentName = stuName.getText();
+        String studentNumber = stuNumber.getText();
+        // 如果 学生姓名、学号为空， 导出整个班级信息
+        if (studentName.isEmpty() || studentNumber.isEmpty()) {
+            String studentGrade = (String)stuGrade.getSelectedItem();
+            String studentClass = (String)stuClass.getSelectedItem();
+            List<Student> grade_class_student = DatabaseHandler.getStudentsByGradeAndClass(studentGrade,studentClass);
+            // 错误处理，不过应该不会出现
+            if (grade_class_student.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "没有找到符合条件的学生！");
+                return;
+            }
+            // 导出整个班级信息 到 Excel 文件
+            try {
+                ExcelHandler.exportStudentsToExcel(grade_class_student, studentGrade, studentClass);
+                JOptionPane.showMessageDialog(null, "学生数据导出成功！");
+            } catch (IOException eg) {
+                eg.printStackTrace();
+                JOptionPane.showMessageDialog(null, "导出文件失败: " + eg.getMessage());
+            }
+        } else {  // 当文本框 姓名、学号都有时
+            List<String> studentAttendActions = DatabaseHandler.getStudentAttendActions(studentName, studentNumber);
+            if (studentAttendActions.isEmpty()) {      // 如果学生信息存在，导出他参加过的活动
+                JOptionPane.showMessageDialog(null, "该学生尚未参加活动！");
+                return;
+            }
+            // 导出活动信息到 Excel 文件
+            try {
+                ExcelHandler.exportActionsToExcel(studentAttendActions, studentName, studentNumber);
+                JOptionPane.showMessageDialog(null, "学生活动数据导出成功！");
+            } catch (IOException eg) {
+                eg.printStackTrace();
+                JOptionPane.showMessageDialog(null, "导出文件失败: " + eg.getMessage());
+            }
+        }
     }
 
     // 绘制 窗口

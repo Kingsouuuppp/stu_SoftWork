@@ -114,7 +114,7 @@ public class ExcelHandler {
         return false;
     }
 
-    // 导出数据至 Excel 文档
+    // 导出班级学生数据至 Excel 文档
     public static void exportStudentsToExcel(List<Student> students, String studentGrade, String studentClass) throws IOException {
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Class_AllStudents");
@@ -149,6 +149,37 @@ public class ExcelHandler {
         // 导出 Excel 表   // 自定义保存路径
         String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
         String fileName = studentGrade+studentClass+"学生劳动学时数据.xlsx";
+        String filePath = desktopPath + File.separator + fileName;
+        try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            workbook.write(fileOut);
+        }
+        workbook.close();
+    }
+
+    // 导出学生参加活动信息到 Excel
+    public static void exportActionsToExcel(List<String> actions, String studentName, String studentNumber) throws IOException {
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Student_AllActions");
+        // 表头
+        Row headerRow = sheet.createRow(0);
+        Cell headerCell1 = headerRow.createCell(0);
+        headerCell1.setCellValue("姓名");
+        Cell headerCell2 = headerRow.createCell(1);
+        headerCell2.setCellValue("学号");
+        Cell headerCell3 = headerRow.createCell(2);
+        headerCell3.setCellValue("活动");
+
+        // 添加信息
+        int rowNum = 1;
+        for (String act : actions) {
+            Row row = sheet.createRow(rowNum++);
+            row.createCell(0).setCellValue(studentName);
+            row.createCell(1).setCellValue(studentNumber);
+            row.createCell(2).setCellValue(act);     // 姓名、学号、参加的活动
+        }
+        // 导出 Excel 表   // 自定义保存路径
+        String desktopPath = System.getProperty("user.home") + File.separator + "Desktop";
+        String fileName = studentName+"参加活动记录.xlsx";
         String filePath = desktopPath + File.separator + fileName;
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
