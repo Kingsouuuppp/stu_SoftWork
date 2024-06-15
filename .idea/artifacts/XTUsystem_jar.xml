@@ -6,24 +6,25 @@
         <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="XTUsystem" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/poi/poi-ooxml-lite/5.2.2/poi-ooxml-lite-5.2.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/com/zaxxer/SparseBitSet/1.2/SparseBitSet-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/poi/poi/5.2.2/poi-5.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/miglayout-swing.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/miglayout-core.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/commons/commons-compress/1.21/commons-compress-1.21.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/poi/poi/5.2.2/poi-5.2.2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/com/github/virtuald/curvesapi/1.07/curvesapi-1.07.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/mysql/mysql-connector-java/8.0.26/mysql-connector-java-8.0.26.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/poi/poi-ooxml/5.2.2/poi-ooxml-5.2.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/poi/poi-ooxml-schemas/4.1.2/poi-ooxml-schemas-4.1.2.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/xmlbeans/xmlbeans/5.1.1/xmlbeans-5.1.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/com/google/protobuf/protobuf-java/3.11.4/protobuf-java-3.11.4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/commons/commons-compress/1.21/commons-compress-1.21.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/com/zaxxer/SparseBitSet/1.2/SparseBitSet-1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/poi/poi-ooxml-schemas/4.1.2/poi-ooxml-schemas-4.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/xerial/sqlite-jdbc/3.36.0.3/sqlite-jdbc-3.36.0.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/xmlbeans/xmlbeans/5.1.1/xmlbeans-5.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/commons-codec/commons-codec/1.15/commons-codec-1.15.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/poi/poi-ooxml-lite/5.2.2/poi-ooxml-lite-5.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/org/apache/poi/poi-ooxml/5.2.2/poi-ooxml-5.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../apache-maven-3.9.7/maven_repository/mysql/mysql-connector-java/8.0.26/mysql-connector-java-8.0.26.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

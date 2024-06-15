@@ -152,11 +152,12 @@ public class mainwindow extends JFrame {
                 JOptionPane.showMessageDialog(null, "该活动已上传，请勿重复提交！");
                 return;
             } else {
-                if (DatabaseHandler.areAllStudentsExist(matchingStudents)) {
-                    if (DatabaseHandler.recordUploadedEvent(hdbeizhuText)) {   // 活动上传成功
-                        DatabaseHandler.updateLaborScores(matchingStudents, ldxsValue);
-                        DatabaseHandler.RecordActions(matchingStudents, hdbeizhuText);
-                    }
+                if (DatabaseHandler.areAllStudentsExist(matchingStudents)) {   // 检查参加活动的学生，他们的信息是否都已经录入 students 表中
+
+                    DatabaseHandler.updateLaborScores(matchingStudents, ldxsValue); // 更新学生劳动学时
+                    DatabaseHandler.RecordActions(matchingStudents, hdbeizhuText);  // 插入 学生活动记录
+                    DatabaseHandler.recordUploadedEvent(hdbeizhuText);              // 上传活动成功
+
                 } else {
                     JOptionPane.showMessageDialog(null, "学生数据不全，请先更新学生花名册！");
                     return;
@@ -265,7 +266,7 @@ public class mainwindow extends JFrame {
         if (studentName.isEmpty() || studentNumber.isEmpty()) {
             String nowGrade = (String)stuGrade.getSelectedItem();
             String nowClass = (String)stuClass.getSelectedItem();
-            List<Student> students = DatabaseHandler.queryStudentsByClass(nowGrade,nowClass);
+            List<Student> students = DatabaseHandler.getStudentsByGradeAndClass(nowGrade,nowClass);
             for (Student student : students) {
                 tableModel.addRow(new Object[]{ // 将查询到的学生信息添加到表格
                         student.getName(),

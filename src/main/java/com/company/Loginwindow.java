@@ -35,6 +35,31 @@ public class Loginwindow extends JFrame {
         }
     }
 
+    private JFrame rootloginFr;
+    private void button1ActionPerformed(ActionEvent e) {
+        String username = usertext.getText();
+        String password = new String(passwordfield.getPassword());
+        if (username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(Loginwindow.this, "账号密码不能为空");
+        } else {
+            if (rootloginFr == null || !rootloginFr.isVisible()) {         // 回调函数，启用登录权限
+                rootloginFr = new rootLogin(new LoginCallback(){
+                    @Override
+                    public void onLoginSuccess() {
+                        DatabaseHandler.registerAccount(username, password);
+                    }
+                    @Override
+                    public void onLoginFailure() {
+
+                    }
+                });
+            } else {
+                rootloginFr.toFront();    // 显示登录界面
+            }
+        }
+    }
+
+
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         label1 = new JLabel();
@@ -44,6 +69,7 @@ public class Loginwindow extends JFrame {
         passwordfield = new JPasswordField();
         logbutton = new JButton();
         label4 = new JLabel();
+        button1 = new JButton();
 
         //======== this ========
         var contentPane = getContentPane();
@@ -53,31 +79,37 @@ public class Loginwindow extends JFrame {
         label1.setText("\u7ba1\u7406\u5458\u767b\u5f55");
         label1.setFont(new Font("\u9ed1\u4f53", Font.PLAIN, 24));
         contentPane.add(label1);
-        label1.setBounds(155, 40, 265, 45);
+        label1.setBounds(160, 40, 255, 45);
 
         //---- label2 ----
-        label2.setText("\u7528\u6237\u540d");
+        label2.setText("\u8d26\u53f7");
         label2.setFont(new Font("\u9ed1\u4f53", Font.PLAIN, 14));
         contentPane.add(label2);
-        label2.setBounds(100, 110, 55, 25);
+        label2.setBounds(110, 110, 40, 25);
 
         //---- label3 ----
         label3.setText("\u5bc6\u7801");
         label3.setFont(new Font("\u9ed1\u4f53", Font.PLAIN, 14));
         contentPane.add(label3);
-        label3.setBounds(115, 155, 40, 25);
+        label3.setBounds(110, 155, 40, 25);
         contentPane.add(usertext);
-        usertext.setBounds(160, 110, 145, 25);
+        usertext.setBounds(155, 110, 145, 25);
         contentPane.add(passwordfield);
-        passwordfield.setBounds(160, 155, 145, 25);
+        passwordfield.setBounds(155, 155, 145, 25);
 
         //---- logbutton ----
         logbutton.setText("\u767b\u5f55");
         logbutton.addActionListener(e -> logbuttonActionPerformed(e));
         contentPane.add(logbutton);
-        logbutton.setBounds(175, 210, 80, 35);
+        logbutton.setBounds(155, 205, 75, 35);
         contentPane.add(label4);
         label4.setBounds(170, 255, 70, 40);
+
+        //---- button1 ----
+        button1.setText("\u6ce8\u518c");
+        button1.addActionListener(e -> button1ActionPerformed(e));
+        contentPane.add(button1);
+        button1.setBounds(240, 205, 60, 35);
 
         {
             // compute preferred size
@@ -106,5 +138,6 @@ public class Loginwindow extends JFrame {
     private JPasswordField passwordfield;
     private JButton logbutton;
     private JLabel label4;
+    private JButton button1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

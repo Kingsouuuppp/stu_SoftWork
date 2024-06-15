@@ -3,19 +3,111 @@ package com.company;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.sql.DriverManager;
 
 // 连接数据库
 public class DatabaseHandler {
     private static final int target_score = 32;    // 必须修满劳动学时分
-    private static final String URL = "jdbc:mysql://localhost:3306/ldxssystem";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "ldmw0915";
+    // SQLite连接URL
+    private static final String URL = "jdbc:sqlite:school.db"; // SQLite数据库文件路径
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        Connection conn = DriverManager.getConnection(URL);
+        enableForeignKeys(conn); // 调用方法开启外键约束
+        return conn;
+    }
+//     设置开启外键约束的方法
+    private static void enableForeignKeys(Connection conn) throws SQLException {
+        try (Statement stmt = conn.createStatement()) {
+            stmt.execute("PRAGMA foreign_keys = ON;");
+        }
     }
 
-    // 登录 验证
+    // 更新操作
+    public static void executeUpdate(Connection conn, String sql) throws SQLException {
+        try (Statement  stmt = conn.createStatement()) {
+            stmt.executeUpdate(sql);
+        }
+    }
+
+    // 创建表格
+    public static void createTables() {
+        try (Connection conn = getConnection()) {
+
+             // 清空 账号密码数据表
+//            String dropAccountsTableSQL = "DROP TABLE IF EXISTS accounts";
+//            executeUpdate(conn, dropAccountsTableSQL);
+
+            // 创建accounts表
+            String createAccountsTableSQL = "CREATE TABLE IF NOT EXISTS accounts ("
+                    + " username TEXT PRIMARY KEY, "
+                    + " password TEXT"
+                    + ")";
+            executeUpdate(conn, createAccountsTableSQL);
+
+            String createGradesTableSQL = "CREATE TABLE IF NOT EXISTS grades ("
+                    + " grade_name TEXT PRIMARY KEY"
+                    + ")";
+            executeUpdate(conn, createGradesTableSQL);
+
+            // 创建events表（没有外键引用）
+            String createEventsTableSQL = "CREATE TABLE IF NOT EXISTS events ("
+                    + " labor_event TEXT PRIMARY KEY"
+                    + ")";
+            executeUpdate(conn, createEventsTableSQL);
+
+            // 创建gradeclasss表
+            String createGradeClasssTableSQL = "CREATE TABLE IF NOT EXISTS gradeclasss ("
+                    + " grade_name TEXT NOT NULL,"
+                    + " class_name TEXT NOT NULL,"
+                    + " PRIMARY KEY (grade_name, class_name),"
+                    + " FOREIGN KEY (grade_name) REFERENCES grades (grade_name) ON DELETE CASCADE"
+                    + ")";
+            executeUpdate(conn, createGradeClasssTableSQL);
+
+            // 创建students表
+            String createStudentsTableSQL = "CREATE TABLE IF NOT EXISTS students ("
+                    + " student_name TEXT NOT NULL,"
+                    + " student_number TEXT NOT NULL,"
+                    + " student_grade TEXT NOT NULL,"
+                    + " student_class TEXT NOT NULL,"
+                    + " labor_score INTEGER NOT NULL DEFAULT 0,"
+                    + " PRIMARY KEY (student_name, student_number),"
+                    + " FOREIGN KEY (student_class, student_grade) REFERENCES gradeclasss (class_name, grade_name) ON DELETE CASCADE"
+                    + ")";
+            executeUpdate(conn, createStudentsTableSQL);
+
+            // 创建studentactions表
+            String createStudentActionsTableSQL = "CREATE TABLE IF NOT EXISTS studentactions ("
+                    + " student_name TEXT NOT NULL,"
+                    + " student_number TEXT NOT NULL,"
+                    + " labor_event TEXT NOT NULL,"
+                    + " PRIMARY KEY (student_name DESC, labor_event DESC, student_number DESC),"
+                    + " FOREIGN KEY (student_name, student_number) REFERENCES students (student_name, student_number) ON DELETE CASCADE,"
+                    + " FOREIGN KEY (labor_event) REFERENCES events (labor_event) ON DELETE CASCADE"
+                    + ")";
+            executeUpdate(conn, createStudentActionsTableSQL);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // 处理连接或SQL异常
+            System.err.println("创建表格时出现异常：" + e.getMessage());
+        }
+    }
+
+    public static void  registerAccount(String userName, String passWord) {
+        String insertRootAccountSQL = "INSERT OR IGNORE INTO accounts (username, password) VALUES (?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement( insertRootAccountSQL )) {
+            statement.setString(1, userName);
+            statement.setString(2, passWord);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    登录 验证
     public static boolean verifyLogin(String username, String password) {
         String sql_0 = "SELECT * FROM accounts WHERE username = ? AND password = ?";
         try (Connection connection = getConnection();
@@ -53,24 +145,24 @@ public class DatabaseHandler {
         }
         return null;
     }
-    // 查询整个班级 学生信息
-    public static List<Student> queryStudentsByClass(String gradeName, String className) {
+
+    // 导出数据，查询整个班级的 劳动学时完成情况
+    public static List<Student> getStudentsByGradeAndClass(String studentGrade, String studentClass) {
         List<Student> students = new ArrayList<>();
-        String sql_2 = "SELECT student_name, student_number, student_grade, student_class, labor_score FROM students WHERE student_grade = ? AND student_class = ? ORDER BY student_number ASC";
+        String sql_2 = "SELECT student_name, student_number, labor_score FROM students WHERE student_grade = ? AND student_class = ? ORDER BY student_number ASC";
+
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql_2)) {
-            statement.setString(1, gradeName);
-            statement.setString(2, className);
+             PreparedStatement statement = connection.prepareStatement( sql_2 )) {
+            statement.setString(1, studentGrade);
+            statement.setString(2, studentClass);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     String name = resultSet.getString("student_name");
-                    String number = resultSet.getString("student_number");
-                    String studentGrade = resultSet.getString("student_grade");
-                    String studentClass = resultSet.getString("student_class");
+                    String studentNumber = resultSet.getString("student_number");
                     int laborScore = resultSet.getInt("labor_score");
                     int scoreDiff = laborScore - target_score;
                     boolean isPass = scoreDiff >= 0;
-                    students.add(new Student(name, number, studentGrade, studentClass, laborScore, scoreDiff, isPass));
+                    students.add(new Student(name, studentNumber, studentGrade, studentClass, laborScore, scoreDiff, isPass));
                 }
             }
         } catch (SQLException e) {
@@ -131,10 +223,11 @@ public class DatabaseHandler {
             return false;
         }
     }
+
     // 数据库 “增” 操作。添加数据到表中
     public static void saveGradeAndClass(String grade, String className) {
-        String sql_6 = "INSERT IGNORE INTO grades (grade_name) VALUES (?)";
-        String sql_7 = "INSERT IGNORE INTO gradeclasss (grade_name, class_name) VALUES (?, ?)";
+        String sql_6 = "INSERT OR IGNORE INTO grades (grade_name) VALUES (?)";
+        String sql_7 = "INSERT OR IGNORE INTO gradeclasss (grade_name, class_name) VALUES (?, ?)";
 
         try (Connection connection = getConnection()) {
             // 保存年级到 grades 表
@@ -155,7 +248,7 @@ public class DatabaseHandler {
     }
     // 班级花名册中学生信息，导入 students 表中
     public static void saveStudents(List<Student> students) {
-        String sql_8 = "INSERT IGNORE INTO students (student_name, student_number, student_grade, student_class) VALUES (?, ?, ?, ?)";
+        String sql_8 = "INSERT OR IGNORE INTO students (student_name, student_number, student_grade, student_class) VALUES (?, ?, ?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement( sql_8 )) {
             for (Student student : students) {
@@ -206,22 +299,20 @@ public class DatabaseHandler {
     }
 
     // 记录上传的活动名
-    public static boolean recordUploadedEvent(String eventName) {
+    public static void recordUploadedEvent(String eventName) {
         String sql_11 = "INSERT INTO events (labor_event) VALUES (?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql_11)) {
             statement.setString(1, eventName);
-            int rowsInserted = statement.executeUpdate();
-            return rowsInserted > 0;
+            statement.executeUpdate();  // 执行sql语句
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     // 插入 学生参加活动的记录
     public static void RecordActions(List<StudentActionInfo> matchingStudents, String eventName) {
-        String sql_12 = "INSERT INTO studentactions (student_name, student_number, labor_event) VALUES (?, ?, ?)";
+        String sql_12 = "INSERT OR IGNORE INTO studentactions (student_name, student_number, labor_event) VALUES (?, ?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql_12)) {
             for (StudentActionInfo studentInfo : matchingStudents) {
@@ -260,30 +351,6 @@ public class DatabaseHandler {
         return true; // 如果所有学生都存在于数据库中，则返回 true
     }
 
-    // 导出数据，查询整个班级的 劳动学时完成情况
-    public static List<Student> getStudentsByGradeAndClass(String studentGrade, String studentClass) {
-        List<Student> students = new ArrayList<>();
-        String sql_14 = "SELECT student_name, student_number, labor_score FROM students WHERE student_grade = ? AND student_class = ? ORDER BY student_number ASC";
-
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement( sql_14 )) {
-            statement.setString(1, studentGrade);
-            statement.setString(2, studentClass);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    String name = resultSet.getString("student_name");
-                    String studentNumber = resultSet.getString("student_number");
-                    int laborScore = resultSet.getInt("labor_score");
-                    int scoreDiff = laborScore - target_score;
-                    boolean isPass = scoreDiff >= 0;
-                    students.add(new Student(name, studentNumber, studentGrade, studentClass, laborScore, scoreDiff, isPass));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return students;
-    }
 
     // 导出数据，查询某一学生 参加的活动情况。
     public static List getStudentAttendActions(String studentName, String studentNumber) {
