@@ -22,7 +22,7 @@ public class Loginwindow extends JFrame {
     }
     // 登录按钮事件监听
     private void logbuttonActionPerformed(ActionEvent e) {
-        String username = usertext.getText();
+        String username = usertext.getText().trim();
         String password = new String(passwordfield.getPassword());
 //        System.out.println("username:" + username + " password:" + password);
         if (DatabaseHandler.verifyLogin(username, password)) {
@@ -37,11 +37,15 @@ public class Loginwindow extends JFrame {
 
     private JFrame rootloginFr;
     private void button1ActionPerformed(ActionEvent e) {
-        String username = usertext.getText();
+        String username = usertext.getText().trim();
         String password = new String(passwordfield.getPassword());
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(Loginwindow.this, "账号密码不能为空");
         } else {
+            if (DatabaseHandler.isusernameExit(username)) {
+                JOptionPane.showMessageDialog(Loginwindow.this, "该账号已存在");
+                return;
+            }
             if (rootloginFr == null || !rootloginFr.isVisible()) {         // 回调函数，启用登录权限
                 rootloginFr = new rootLogin(new LoginCallback(){
                     @Override

@@ -300,7 +300,7 @@ public class DatabaseHandler {
 
     // 记录上传的活动名
     public static void recordUploadedEvent(String eventName) {
-        String sql_11 = "INSERT INTO events (labor_event) VALUES (?)";
+        String sql_11 = "INSERT OR IGNORE INTO events (labor_event) VALUES (?)";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(sql_11)) {
             statement.setString(1, eventName);
@@ -369,5 +369,23 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
         return studentAttendActions;
+    }
+
+    // 注册功能验证 账号是否存在
+    public static boolean isusernameExit(String username) {
+        String sql_16 = "SELECT COUNT(*) FROM accounts WHERE username = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(( sql_16))) {
+            statement.setString(1, username);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                int count = resultSet.getInt(1);
+                if (count == 0) {
+                    return false; // 如果任何一个学生不在数据库中，则返回 false
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }
