@@ -154,9 +154,9 @@ public class mainwindow extends JFrame {
             } else {
                 if (DatabaseHandler.areAllStudentsExist(matchingStudents)) {   // 检查参加活动的学生，他们的信息是否都已经录入 students 表中
 
+                    DatabaseHandler.recordUploadedEvent(hdbeizhuText);              // 上传活动成功
                     DatabaseHandler.updateLaborScores(matchingStudents, ldxsValue); // 更新学生劳动学时
                     DatabaseHandler.RecordActions(matchingStudents, hdbeizhuText);  // 插入 学生活动记录
-                    DatabaseHandler.recordUploadedEvent(hdbeizhuText);              // 上传活动成功
 
                 } else {
                     JOptionPane.showMessageDialog(null, "学生数据不全，请先更新学生花名册！");
@@ -257,8 +257,8 @@ public class mainwindow extends JFrame {
     //  查询按钮
     private void searchButtonActionPerformed(ActionEvent e) {
         // 获取文本框中的内容
-        String studentName = stuName.getText();
-        String studentNumber = stuNumber.getText();
+        String studentName = stuName.getText().trim();
+        String studentNumber = stuNumber.getText().trim();
         // 每次查询，先情况查询输出表格中的数据
         DefaultTableModel tableModel = (DefaultTableModel) table1.getModel();
         tableModel.setRowCount(0);  // 清空表格数据
@@ -320,8 +320,8 @@ public class mainwindow extends JFrame {
     // 导出 按钮 监听事件
     private void exportbuttonActionPerformed(ActionEvent e) {
 
-        String studentName = stuName.getText();
-        String studentNumber = stuNumber.getText();
+        String studentName = stuName.getText().trim();
+        String studentNumber = stuNumber.getText().trim();
         // 如果 学生姓名、学号为空， 导出整个班级信息
         if (studentName.isEmpty() || studentNumber.isEmpty()) {
             String studentGrade = (String)stuGrade.getSelectedItem();
@@ -567,7 +567,7 @@ public class mainwindow extends JFrame {
             //---- bztext ----
             bztext.setText("\u6d3b\u52a8\u5907\u6ce8\uff1a");
             qdqtjpanel.add(bztext);
-            bztext.setBounds(265, 20, 60, 25);
+            bztext.setBounds(265, 20, 90, 25);
 
             //---- hdbeizhu ----
             hdbeizhu.setFont(new Font("\u9ed1\u4f53", Font.PLAIN, 12));
@@ -577,7 +577,7 @@ public class mainwindow extends JFrame {
             //---- ldxstext ----
             ldxstext.setText("\u52b3\u52a8\u5b66\u65f6\uff1a");
             qdqtjpanel.add(ldxstext);
-            ldxstext.setBounds(265, 90, 60, 25);
+            ldxstext.setBounds(265, 90, 75, 25);
 
             //---- ldxs ----
             ldxs.setFont(new Font("\u9ed1\u4f53", Font.PLAIN, 12));
@@ -611,7 +611,7 @@ public class mainwindow extends JFrame {
 
         //======== hmcjpanel ========
         {
-            hmcjpanel.setBorder(new TitledBorder("\u6587\u4ef6\u540d\u683c\u5f0f\u5982\uff1a2021\u7ea7\u8ba1\u7b97\u673a\u79d1\u5b66\u4e0e\u6280\u672f1\u73ed"));
+            hmcjpanel.setBorder(new TitledBorder("\u6587\u4ef6\u540d\u683c\u5f0f\uff1a2021\u7ea7\u8ba1\u7b97\u673a\u79d1\u5b66\u4e0e\u6280\u672f1\u73ed"));
             hmcjpanel.setLayout(null);
 
             //---- scHmc ----
